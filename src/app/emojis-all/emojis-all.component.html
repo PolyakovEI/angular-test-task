@@ -1,0 +1,33 @@
+<h1>{{title | uppercase}}</h1>
+
+<!-- Search emoji -->
+
+<table>
+    <tbody>
+        <tr>
+            <th>Имя</th>
+            <th>Ссылка</th>
+            <th>Превью</th>
+            <th colspan="2">Действия</th>
+        </tr>
+
+        <tr *ngFor="let emoji of emojisAll">
+            <td>{{emoji.name}}</td>
+            <td>{{emoji.url}}</td>
+            <td>
+                <img
+                    src="{{emoji.url}}"
+                    alt="emoji.name"
+                    height="25px"
+                    width="25px"
+                >
+            </td>
+            <td>
+                <button (click)="favorite(emoji)">*</button>
+            </td>
+            <td>
+                <button (click)="delete(emoji)">x</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
