@@ -28,7 +28,6 @@ export class EmojisFavoriteComponent implements OnInit {
 
   // add emoji in list deleted
   delete(emoji: Emoji): void {
-    emoji.listDeleted = true;
     emoji.listFavorite = false;
     this.emojisFavorite = this.emojisFavorite.filter(h => h !== emoji);
     this.emojiService.updateEmoji(emoji)

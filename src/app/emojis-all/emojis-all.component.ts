@@ -11,6 +11,7 @@ export class EmojisAllComponent implements OnInit {
   title = 'все';
 
   emojisAll: Emoji[];
+  emojisArray: Emoji[];
 
   constructor(private emojiService: EmojiService) { }
 

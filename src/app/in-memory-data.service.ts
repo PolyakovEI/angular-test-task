@@ -2,7 +2,8 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    const emojis = [
+    // tslint:disable-next-line:prefer-const
+    let emojis = [
       // tslint:disable-next-line:max-line-length
       { id: 1, name: '+1', url: 'https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png?v8', listAll: true
       , listFavorite: false, listDeleted: false },

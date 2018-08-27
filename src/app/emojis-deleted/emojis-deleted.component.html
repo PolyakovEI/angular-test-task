@@ -1,0 +1,30 @@
+<h1>{{title | uppercase}}</h1>
+
+<!-- Search emoji -->
+
+<table>
+    <tbody>
+        <tr>
+            <th>Имя</th>
+            <th>Ссылка</th>
+            <th>Превью</th>
+            <th>Действия</th>
+        </tr>
+
+        <tr *ngFor="let emoji of emojisDeleted">
+            <td>{{emoji.name}}</td>
+            <td>{{emoji.url}}</td>
+            <td>
+                <img
+                    src="{{emoji.url}}"
+                    alt="emoji.name"
+                    height="25px"
+                    width="25px"
+                >
+            </td>
+            <td>
+                <button (click)="restore(emoji)">Восстановить</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

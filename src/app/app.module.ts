@@ -8,12 +8,14 @@ import { EmojisAllComponent } from './emojis-all/emojis-all.component';
 import { InMemoryDataService } from './in-memory-data.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { EmojisFavoriteComponent } from './emojis-favorite/emojis-favorite.component';
+import { EmojisDeletedComponent } from './emojis-deleted/emojis-deleted.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmojisAllComponent,
-    EmojisFavoriteComponent
+    EmojisFavoriteComponent,
+    EmojisDeletedComponent
   ],
   imports: [
     BrowserModule,

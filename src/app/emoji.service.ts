@@ -19,8 +19,9 @@ export class EmojiService {
   constructor(private http: HttpClient) { }
 
   /** GET emojis from the server */
-  getEmojis(params?: string): Observable<Emoji[]> {
-    return this.http.get<Emoji[]>((params.trim().length) ? this.emojisUrl + '?' + params : this.emojisUrl)
+  getEmojis(params: string): Observable<Emoji[]> {
+    console.log((params.trim()) ? this.emojisUrl + '?' + params : this.emojisUrl);
+    return this.http.get<Emoji[]>((params.trim()) ? this.emojisUrl + '?' + params : this.emojisUrl)
       .pipe(
         tap(emojis => this.log('fetched emojis')),
         catchError(this.handleError('getEmojis', []))
