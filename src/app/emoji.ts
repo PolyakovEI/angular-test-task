@@ -1,7 +1,9 @@
 export class Emoji {
-  id: number;
   name: string;
   url: string;
-  listFavorite: boolean;
-  listDeleted: boolean;
+
+  constructor(name: string, url: string) {
+    this.name = name;
+    this.url = url;
+  }
 }

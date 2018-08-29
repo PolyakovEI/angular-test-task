@@ -18,31 +18,30 @@ export class EmojisAllComponent implements OnInit {
 
   ngOnInit() {
     this.getEmojis();
+
   }
 
 
   // get list emojis
-  getEmojis(): void {
-    this.emojiService.getEmojis('listDeleted=false')
-      .subscribe(emojis => this.emojisAll = emojis);
+  async getEmojis(): Promise<void> {
+    this.emojisArray = await this.emojiService.getList();
   }
 
 
   // add emoji in list favorite
-  favorite(emoji: Emoji): void {
-    emoji.listFavorite = !emoji.listFavorite;
-    console.log(`${emoji.name} favorite = ${emoji.listFavorite}`);
-    this.emojiService.updateEmoji(emoji)
-      .subscribe();
+  liked(key: string): void {
+    this.emojiService.liked(key);
   }
 
 
   // add emoji in list deleted
   delete(emoji: Emoji): void {
-    emoji.listDeleted = true;
-    emoji.listFavorite = false;
-    this.emojisAll = this.emojisAll.filter(h => h !== emoji);
-    this.emojiService.updateEmoji(emoji)
-      .subscribe();
+    this.emojisArray = this.emojisArray.filter(h => h !== emoji);
+    this.emojiService.delete(emoji.name);
+  }
+
+
+  checkInLiked(key: string): boolean {
+    return this.emojiService.cheackInLiked(key);
   }
 }

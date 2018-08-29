@@ -4,9 +4,13 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Emoji } from './emoji';
+import { resolve } from 'url';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  })
 };
 
 @Injectable({
@@ -14,51 +18,87 @@ const httpOptions = {
 })
 export class EmojiService {
 
-  private emojisUrl = 'api/emojis';  // URL to web api
+  private emojisUrl = 'https://api.github.com/emojis';
+
+  public emojis: Object;
 
   constructor(private http: HttpClient) { }
 
-  /** GET emojis from the server */
-  getEmojis(params: string): Observable<Emoji[]> {
-    console.log((params.trim()) ? this.emojisUrl + '?' + params : this.emojisUrl);
-    return this.http.get<Emoji[]>((params.trim()) ? this.emojisUrl + '?' + params : this.emojisUrl)
-      .pipe(
-        tap(emojis => this.log('fetched emojis')),
-        catchError(this.handleError('getEmojis', []))
-      );
+
+  getListEmojis() {
+    return this.http.get(this.emojisUrl, httpOptions)
+      .toPromise()
+      .then(data => {
+        this.emojis = data;
+        console.log(this.emojis);
+      });
   }
 
-  /** PUT: update the emoji on the server */
-  updateEmoji(emoji: Emoji): Observable<any> {
-    return this.http.put(this.emojisUrl, emoji, httpOptions)
-      .pipe(
-        tap(_ => this.log(`updated emoji name=${emoji.name}`)),
-        catchError(this.handleError<any>('updateEmoji'))
-      );
+
+  async getList(list: string = ''): Promise<Emoji[]> {
+    const result: Emoji[] = [];
+    // console.log(result);
+    if (!this.emojis) {
+      await this.getListEmojis();
+    }
+      if (list) {
+        const arrayKeys = Object.values<string>(localStorage.getItem(list) ? JSON.parse(localStorage.getItem(list)) : {});
+        if (arrayKeys) {
+          for (const key of arrayKeys) {
+            result.push(new Emoji(key, this.emojis[key]));
+          }
+        }
+      } else {
+        const arrayKeysDeleted = Object.values<string>(localStorage.getItem('deleted') ? JSON.parse(localStorage.getItem('deleted')) : {});
+        const arrayKeysAll = Object.keys(this.emojis);
+
+        for (const key of arrayKeysAll) {
+          if ((!arrayKeysDeleted) || (arrayKeysDeleted.indexOf(key) < 0)) {
+            result.push(new Emoji(key, this.emojis[key]));
+          }
+        }
+
+      }
+      console.log(result);
+      return result;
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+  liked(key: string): void {
+    let arrayKeysLiked = Object.values<string>(localStorage.getItem('liked') ? JSON.parse(localStorage.getItem('liked')) : {});
+    if ((arrayKeysLiked) && (arrayKeysLiked.indexOf(key) >= 0)) {
+      arrayKeysLiked = arrayKeysLiked.filter(h => h !== key);
+    } else {
+      arrayKeysLiked.push(key);
+    }
+    localStorage.setItem('liked', JSON.stringify(arrayKeysLiked));
   }
 
-  /** Log a HeroService message with the MessageService */
-  private log(message: string) {
-    console.log(`EmojiService: ${message}`);
+
+  delete(key: string): void {
+    // проверяем есть ли в списке любимые, то убираем из списка
+    let arrayKeysLiked = Object.values<string>(localStorage.getItem('liked') ? JSON.parse(localStorage.getItem('liked')) : {});
+    if ((arrayKeysLiked) && (arrayKeysLiked.indexOf(key) >= 0)) {
+      arrayKeysLiked = arrayKeysLiked.filter(h => h !== key);
+    }
+    localStorage.setItem('liked', JSON.stringify(arrayKeysLiked));
+    // Проверяем есть ли в списке удаленных, то убираем из списка, иначе добавляем
+    let arrayKeysDeleted = Object.values<string>(localStorage.getItem('deleted') ? JSON.parse(localStorage.getItem('deleted')) : {});
+    if ((arrayKeysDeleted) && (arrayKeysDeleted.indexOf(key) >= 0)) {
+      arrayKeysDeleted = arrayKeysDeleted.filter(h => h !== key);
+    } else {
+      arrayKeysDeleted.push(key);
+    }
+    localStorage.setItem('deleted', JSON.stringify(arrayKeysDeleted));
   }
+
+
+  cheackInLiked(key: string): boolean {
+    const arrayKeysLiked = Object.values<string>(localStorage.getItem('liked') ? JSON.parse(localStorage.getItem('liked')) : {});
+    if ((arrayKeysLiked) && (arrayKeysLiked.indexOf(key) >= 0)) {
+      return true;
+    }
+    return false;
+  }
+
 }

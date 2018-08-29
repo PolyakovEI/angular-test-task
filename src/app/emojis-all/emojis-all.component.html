@@ -11,7 +11,7 @@
             <th colspan="2">Действия</th>
         </tr>
 
-        <tr *ngFor="let emoji of emojisAll">
+        <tr *ngFor="let emoji of emojisArray">
             <td>{{emoji.name}}</td>
             <td>{{emoji.url}}</td>
             <td>
@@ -23,7 +23,12 @@
                 >
             </td>
             <td>
-                <button (click)="favorite(emoji)">*</button>
+                <button
+                    (click)="liked(emoji.name)"
+                    [ngClass]="{'liked': checkInLiked(emoji.name)}"
+                >
+                    *
+                </button>
             </td>
             <td>
                 <button (click)="delete(emoji)">x</button>

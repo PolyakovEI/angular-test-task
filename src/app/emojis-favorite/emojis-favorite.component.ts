@@ -9,10 +9,10 @@ import { EmojiService } from '../emoji.service';
 })
 export class EmojisFavoriteComponent implements OnInit {
   title = 'любимые';
-  emojisFavorite: Emoji[];
-
+  emojisArray: Emoji[];
 
   constructor(private emojiService: EmojiService) { }
+
 
   ngOnInit() {
     this.getEmoji();
@@ -20,17 +20,14 @@ export class EmojisFavoriteComponent implements OnInit {
 
 
   // get list emojis
-  getEmoji(): void {
-    this.emojiService.getEmojis('listFavorite=true')
-      .subscribe(emojis => this.emojisFavorite = emojis);
+  async getEmoji(): Promise<void> {
+    this.emojisArray = await this.emojiService.getList('liked');
   }
 
 
   // add emoji in list deleted
   delete(emoji: Emoji): void {
-    emoji.listFavorite = false;
-    this.emojisFavorite = this.emojisFavorite.filter(h => h !== emoji);
-    this.emojiService.updateEmoji(emoji)
-      .subscribe();
+    this.emojisArray = this.emojisArray.filter(h => h !== emoji);
+    this.emojiService.liked(emoji.name);
   }
 }
