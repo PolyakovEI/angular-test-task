@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## The link for viewing
 
-The link [for viewing](https://polyakovei.github.io/angular-test-task/src/index.html).
+The link [for viewing](https://polyakovei.github.io/angular-test-task/).
 
 ## Development server
 
