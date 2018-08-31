@@ -1,30 +1,97 @@
 <h1>{{title | uppercase}}</h1>
 
-<!-- Search emoji -->
+<input type="search" matInput #searchBox (keyup)="search(searchBox.value)" class="input-search" placeholder="Search"/>
 
-<table>
+<table
+    mat-table
+    [dataSource]="emojisArray"
+    class="mat-elevation-z8"
+>
+    <ng-container matColumnDef="name">
+        <th
+            mat-header-cell
+            *matHeaderCellDef
+        >
+            Имя
+        </th>
+        <td
+            mat-cell
+            *matCellDef="let emoji"
+            class="column-name"
+        >
+            {{emoji.name}}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="url">
+        <th
+            mat-header-cell
+            *matHeaderCellDef
+        >
+            Ссылка
+        </th>
+        <td
+            mat-cell
+            *matCellDef="let emoji"
+            class="column-url"
+        >
+            {{emoji.url}}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="preview">
+        <th
+            mat-header-cell
+            *matHeaderCellDef
+        >
+            Превью
+        </th>
+        <td
+            mat-cell
+            *matCellDef="let emoji"
+            class="column-preview"
+        >
+            <img
+                src="{{emoji.url}}"
+                alt="emoji.name"
+                height="25px"
+                width="25px"
+                aria-html="true"
+                matTooltip="<img src='{{emoji.url}}'>"
+
+            >
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th
+            mat-header-cell
+            *matHeaderCellDef
+        >
+            Действия
+        </th>
+        <td
+            mat-cell
+            *matCellDef="let emoji"
+            class="column-actions"
+        >
+            <button
+                mat-raised-button
+                (click)="restore(emoji)"
+            >
+                Восстановить
+            </button>
+        </td>
+    </ng-container>
+
     <tbody>
-        <tr>
-            <th>Имя</th>
-            <th>Ссылка</th>
-            <th>Превью</th>
-            <th>Действия</th>
-        </tr>
-
-        <tr *ngFor="let emoji of emojisArray">
-            <td>{{emoji.name}}</td>
-            <td>{{emoji.url}}</td>
-            <td>
-                <img
-                    src="{{emoji.url}}"
-                    alt="emoji.name"
-                    height="25px"
-                    width="25px"
-                >
-            </td>
-            <td>
-                <button (click)="restore(emoji)">Восстановить</button>
-            </td>
-        </tr>
+        <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns"
+        ></tr>
+        <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns;"
+        ></tr>
     </tbody>
 </table>

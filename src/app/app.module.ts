@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule, MatListModule, MatTableModule, MatIconModule, MatButtonModule,
+  MatTooltipModule, MatCardModule, MatInputModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { EmojisAllComponent } from './emojis-all/emojis-all.component';
@@ -18,7 +21,16 @@ import { EmojisDeletedComponent } from './emojis-deleted/emojis-deleted.componen
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatListModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

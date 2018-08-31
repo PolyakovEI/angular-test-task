@@ -9,7 +9,7 @@ import { EmojiService } from '../emoji.service';
 })
 export class EmojisAllComponent implements OnInit {
   title = 'все';
-
+  displayedColumns: string[] = ['name', 'url', 'preview', 'actions', 'actions2'];
   emojisAll: Emoji[];
   emojisArray: Emoji[];
 
@@ -43,5 +43,14 @@ export class EmojisAllComponent implements OnInit {
 
   checkInLiked(key: string): boolean {
     return this.emojiService.cheackInLiked(key);
+  }
+
+  async search(findStr: string): Promise<void> {
+    this.emojisArray = await this.emojiService.searchEmojis('', findStr);
+  }
+
+
+  log(ev: Event): void {
+    console.log(ev);
   }
 }

@@ -101,4 +101,11 @@ export class EmojiService {
     return false;
   }
 
+
+  async searchEmojis(list: string, findStr: string): Promise<Emoji[]> {
+    let emojisArray: Emoji[] = await this.getList(list);
+    emojisArray = emojisArray.filter(h => h.name.indexOf(findStr.trim()) + 1);
+    return emojisArray;
+  }
+
 }

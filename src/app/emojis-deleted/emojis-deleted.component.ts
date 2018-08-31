@@ -9,6 +9,7 @@ import { Emoji } from '../emoji';
 })
 export class EmojisDeletedComponent implements OnInit {
   title = 'удаленные';
+  displayedColumns: string[] = ['name', 'url', 'preview', 'actions'];
   emojisArray: Emoji[];
 
   constructor(private emojiService: EmojiService) { }
@@ -29,5 +30,10 @@ export class EmojisDeletedComponent implements OnInit {
   restore(emoji: Emoji): void {
     this.emojisArray = this.emojisArray.filter(h => h !== emoji);
     this.emojiService.delete(emoji.name);
+  }
+
+
+  async search(findStr: string): Promise<void> {
+    this.emojisArray = await this.emojiService.searchEmojis('deleted', findStr);
   }
 }

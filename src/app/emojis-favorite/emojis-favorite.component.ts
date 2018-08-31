@@ -9,6 +9,7 @@ import { EmojiService } from '../emoji.service';
 })
 export class EmojisFavoriteComponent implements OnInit {
   title = 'любимые';
+  displayedColumns: string[] = ['name', 'url', 'preview', 'actions'];
   emojisArray: Emoji[];
 
   constructor(private emojiService: EmojiService) { }
@@ -29,5 +30,10 @@ export class EmojisFavoriteComponent implements OnInit {
   delete(emoji: Emoji): void {
     this.emojisArray = this.emojisArray.filter(h => h !== emoji);
     this.emojiService.liked(emoji.name);
+  }
+
+
+  async search(findStr: string): Promise<void> {
+    this.emojisArray = await this.emojiService.searchEmojis('liked', findStr);
   }
 }

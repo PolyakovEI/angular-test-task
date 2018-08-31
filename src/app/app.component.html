@@ -1,7 +1,17 @@
-<nav>
-  <a routerLink="/emojisAll">Все</a>
-  <a routerLink="/emojisFavorite">Любимые</a>
-  <a routerLink="/emojisDeleted">Удаленные</a>
-</nav>
-
-<router-outlet></router-outlet>
+<mat-sidenav-container
+    class="nav-container"
+>
+    <mat-sidenav
+        mode="side"
+        opened
+    >
+    <mat-nav-list>
+            <a mat-list-item routerLink="/emojisAll" routerLinkActive="active">Все</a>
+            <a mat-list-item routerLink="/emojisFavorite" routerLinkActive="active">Любимые</a>
+            <a mat-list-item routerLink="/emojisDeleted" routerLinkActive="active">Удаленные</a>
+    </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
