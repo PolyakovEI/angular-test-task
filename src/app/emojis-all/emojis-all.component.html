@@ -78,7 +78,7 @@
                 (click)="liked(emoji.name)"
                 [ngClass]="{'liked': checkInLiked(emoji.name)}"
             >
-                <mat-icon aria-label="Like emoji">favorite</mat-icon>
+                <mat-icon aria-label="Like emoji">star</mat-icon>
             </button>
         </td>
     </ng-container>
@@ -95,7 +95,7 @@
             <button 
                 mat-icon-button
                 (click)="delete(emoji)">
-                <mat-icon aria-label="Delete emoji">deleted</mat-icon>
+                <mat-icon aria-label="Delete emoji">clear</mat-icon>
             </button>
         </td>
     </ng-container>
