@@ -1,13 +1,14 @@
 <div>
     <h1>{{title | uppercase}}</h1>
 
-    <input
-        matInput
-        #searchBox
-        (keyup)="search(searchBox.value)"
-        class="input-search"
-        placeholder="Search"
-    >
+    <mat-form-field class="input-search">
+        <input
+            matInput
+            #searchBox
+            (keyup)="search(searchBox.value)"
+            placeholder="Search"
+        >
+    </mat-form-field>
 </div>
 <div>
 
@@ -42,7 +43,6 @@
             <td
                 mat-cell
                 *matCellDef="let emoji"
-                
             >
                 {{emoji.url}}
             </td>
@@ -61,12 +61,13 @@
                 class="column-preview"
             >
                 <img
-                    #image
+                    class="img"
                     src="{{emoji.url}}"
-                    alt="emoji.name"
-                    height="25px"
-                    width="25px"
+                    alt="{{emoji.name}}"
                 >
+                <div class="full-size-image">
+                    <img src="{{emoji.url}}">
+                </div>
             </td>
         </ng-container>
 
