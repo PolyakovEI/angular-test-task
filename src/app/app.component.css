@@ -38,9 +38,32 @@
 
 .input-search {
   margin-right: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
   display: block;
   float: right;
-  /* font-size: 1.5em; */
+}
+
+.img {
+  height: 25px;
+  width: 25px;
+}
+
+.full-size-image {
+  display:none;
+  margin-left: -64px;
+  padding:10px;
+  margin-top:5px;
+  background:#f3f3f3;
+  height:auto;
+  z-index: 100;
+  width:auto;
+  -moz-box-shadow:0 5px 5px rgba(0,0,0,0.3);
+  -webkit-box-shadow:0 5px 5px rgba(0,0,0,0.3);
+  box-shadow:0 5px 5px rgba(0,0,0,0.3);
+}
+
+.img:hover ~ .full-size-image {
+  display:block;
+  position:absolute;
+  top:inherit;
 }
