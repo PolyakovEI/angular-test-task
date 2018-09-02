@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule, MatListModule, MatTableModule, MatIconModule, MatButtonModule,
-  MatTooltipModule, MatCardModule, MatInputModule } from '@angular/material';
+  MatTooltipModule, MatCardModule, MatInputModule, MatProgressSpinnerModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { EmojisAllComponent } from './emojis-all/emojis-all.component';
@@ -30,7 +30,8 @@ import { EmojisDeletedComponent } from './emojis-deleted/emojis-deleted.componen
     MatButtonModule,
     MatTooltipModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

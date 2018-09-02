@@ -1,113 +1,119 @@
-<h1>{{title | uppercase}}</h1>
+<div>
+    <h1>{{title | uppercase}}</h1>
 
-<input type="search" matInput #searchBox (keyup)="search(searchBox.value)" class="input-search" placeholder="Search"/>
+    <input
+        matInput
+        #searchBox
+        (keyup)="search(searchBox.value)"
+        class="input-search"
+        placeholder="Search"
+    >
+</div>
+<div>
 
-<table
-    mat-table
-    [dataSource]="emojisArray"
-    class="mat-elevation-z8"
->
-    <ng-container matColumnDef="name">
-        <th
-            mat-header-cell
-            *matHeaderCellDef
-        >
-            Имя
-        </th>
-        <td
-            mat-cell
-            *matCellDef="let emoji"
-            class="column-name"
-        >
-            {{emoji.name}}
-        </td>
-    </ng-container>
-
-    <ng-container matColumnDef="url">
-        <th
-            mat-header-cell
-            *matHeaderCellDef
-        >
-            Ссылка
-        </th>
-        <td
-            mat-cell
-            *matCellDef="let emoji"
-            class="column-url"
-        >
-            {{emoji.url}}
-        </td>
-    </ng-container>
-
-    <ng-container matColumnDef="preview">
-        <th
-            mat-header-cell
-            *matHeaderCellDef
-        >
-            Превью
-        </th>
-        <td
-            mat-cell
-            *matCellDef="let emoji"
-            class="column-preview"
-        >
-            <img #image
-                src="{{emoji.url}}"
-                alt="emoji.name"
-                height="25px"
-                width="25px"
+    <table
+        mat-table
+        [dataSource]="emojisArray"
+        class="mat-elevation-z8"
+    >
+        <ng-container matColumnDef="name">
+            <th
+                mat-header-cell
+                *matHeaderCellDef
             >
-        </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-        <th
-            mat-header-cell
-            *matHeaderCellDef
-            colspan="2"
-            class="column-actions"
-        >
-            Действия
-        </th>
-        <td
-            mat-cell
-            *matCellDef="let emoji"
-        >
-            <button
-                mat-icon-button
-                (click)="liked(emoji.name)"
-                [ngClass]="{'liked': checkInLiked(emoji.name)}"
+                Имя
+            </th>
+            <td
+                mat-cell
+                *matCellDef="let emoji"
+                class="column-name"
             >
-                <mat-icon aria-label="Like emoji">star</mat-icon>
-            </button>
-        </td>
-    </ng-container>
+                {{emoji.name}}
+            </td>
+        </ng-container>
 
-    <ng-container matColumnDef="actions2">
-        <th
-            mat-header-cell
-            *matHeaderCellDef
-        ></th>
-        <td
-            mat-cell
-            *matCellDef="let emoji"
-        >
-            <button 
-                mat-icon-button
-                (click)="delete(emoji)">
-                <mat-icon aria-label="Delete emoji">clear</mat-icon>
-            </button>
-        </td>
-    </ng-container>
+        <ng-container matColumnDef="url">
+            <th
+                mat-header-cell
+                *matHeaderCellDef
+            >
+                Ссылка
+            </th>
+            <td
+                mat-cell
+                *matCellDef="let emoji"
+                
+            >
+                {{emoji.url}}
+            </td>
+        </ng-container>
 
-    <tbody>
-        <tr
-            mat-header-row
-            *matHeaderRowDef="displayedColumns"
-        ></tr>
-        <tr
-            mat-row
-            *matRowDef="let row; columns: displayedColumns;"
-        ></tr>
-    </tbody>
-</table>
+        <ng-container matColumnDef="preview">
+            <th
+                mat-header-cell
+                *matHeaderCellDef
+            >
+                Превью
+            </th>
+            <td
+                mat-cell
+                *matCellDef="let emoji"
+                class="column-preview"
+            >
+                <img
+                    #image
+                    src="{{emoji.url}}"
+                    alt="emoji.name"
+                    height="25px"
+                    width="25px"
+                >
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th
+                colspan="2"
+                mat-header-cell
+                *matHeaderCellDef
+            >
+                Действия
+            </th>
+            <td
+                mat-cell
+                *matCellDef="let emoji"
+                class="column-actions"
+            >
+                <div>
+                    <td>
+                        <button
+                            mat-icon-button
+                            (click)="liked(emoji.name)"
+                            [ngClass]="{'liked': checkInLiked(emoji.name)}"
+                        >
+                            <mat-icon aria-label="Like emoji">star</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button
+                            mat-icon-button
+                            (click)="delete(emoji)"
+                        >
+                            <mat-icon aria-label="Delete emoji">clear</mat-icon>
+                        </button>
+                    </td>
+                </div>
+            </td>
+        </ng-container>
+
+        <tbody>
+            <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns"
+            ></tr>
+            <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns;"
+            ></tr>
+        </tbody>
+    </table>
+</div>

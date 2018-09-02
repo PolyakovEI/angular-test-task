@@ -11,6 +11,7 @@ export class EmojisFavoriteComponent implements OnInit {
   title = 'любимые';
   displayedColumns: string[] = ['name', 'url', 'preview', 'actions'];
   emojisArray: Emoji[];
+  preloaderVisible;
 
   constructor(private emojiService: EmojiService) { }
 
@@ -22,7 +23,12 @@ export class EmojisFavoriteComponent implements OnInit {
 
   // get list emojis
   async getEmoji(): Promise<void> {
-    this.emojisArray = await this.emojiService.getList('liked');
+    this.preloaderVisible = true;
+    await this.emojiService.getList('liked')
+      .then(data => {
+        this.emojisArray = data;
+        this.preloaderVisible = false;
+      });
   }
 
 

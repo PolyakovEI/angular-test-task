@@ -13,39 +13,9 @@ table{
   width: 100%;
 }
 
-.column-name {
-  width: 20%;
-}
-
-.column-url {
-  width: 70%;
-}
-
-.column-preview {
-  width: 4%;
-} 
-.column-actions {
-  width: 6%;
-}
-
-.input-search {
-  margin-right: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  display: block;
-  float: right;
-  font-size: 1.5em;
-}
-
 h1 {
   margin-left: 20px;
   display: block;
   float: left;
   overflow: hidden;
-}
-
-img:hover {
-  -ms-content-zooming: initial;
-  -moz-image-region: inherit;
-  resize: unset;
 }

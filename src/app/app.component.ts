@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-test-task';
+
+  isLoading = false;
+
+  onLoading($event: boolean): void {
+    this.isLoading = $event;
+    console.log($event);
+  }
 }

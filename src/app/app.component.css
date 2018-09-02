@@ -6,3 +6,41 @@
   right: 0;
   background: #eee;
 }
+
+.nav-side {
+  /* background: darkgray; */
+  border-right: solid 5px #eee;
+  width: 123px;
+  box-shadow:  darkgray;
+}
+
+.active {
+  color:  #383737;
+  font-weight: bolder;
+  /* border-bottom: solid 2px darkblue; */
+  background-color: #F5F5F5;
+}
+
+.column-name {
+  width: 20%;
+}
+
+.column-url {
+  width: 70%;
+}
+
+.column-preview {
+  width: 60px;
+} 
+.column-actions {
+  width: 90px;
+}
+
+.input-search {
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+  float: right;
+  /* font-size: 1.5em; */
+}

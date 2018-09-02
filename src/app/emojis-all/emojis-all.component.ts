@@ -9,9 +9,10 @@ import { EmojiService } from '../emoji.service';
 })
 export class EmojisAllComponent implements OnInit {
   title = 'все';
-  displayedColumns: string[] = ['name', 'url', 'preview', 'actions', 'actions2'];
+  displayedColumns: string[] = ['name', 'url', 'preview', 'actions'];
   emojisAll: Emoji[];
   emojisArray: Emoji[];
+  preloaderVisible: boolean;
 
   constructor(private emojiService: EmojiService) { }
 
@@ -24,7 +25,12 @@ export class EmojisAllComponent implements OnInit {
 
   // get list emojis
   async getEmojis(): Promise<void> {
-    this.emojisArray = await this.emojiService.getList();
+    this.preloaderVisible = true;
+    await this.emojiService.getList()
+      .then(data => {
+        this.emojisArray = data;
+        this.preloaderVisible = false;
+      });
   }
 
 
