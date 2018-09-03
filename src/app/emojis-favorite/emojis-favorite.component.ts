@@ -21,10 +21,10 @@ export class EmojisFavoriteComponent implements OnInit {
   }
 
 
-  // get list emojis
+  // Get list of emojis
   async getEmoji(): Promise<void> {
     this.preloaderVisible = true;
-    await this.emojiService.getList('liked')
+    await this.emojiService.getList('favorite')
       .then(data => {
         this.emojisArray = data;
         this.preloaderVisible = false;
@@ -32,14 +32,15 @@ export class EmojisFavoriteComponent implements OnInit {
   }
 
 
-  // add emoji in list deleted
+  // Add emoji in list deleted
   delete(emoji: Emoji): void {
     this.emojisArray = this.emojisArray.filter(h => h !== emoji);
-    this.emojiService.liked(emoji.name);
+    this.emojiService.favorite(emoji.name);
   }
 
 
+  // Search emoji in specified list of emojis
   async search(findStr: string): Promise<void> {
-    this.emojisArray = await this.emojiService.searchEmojis('liked', findStr);
+    this.emojisArray = await this.emojiService.searchEmojis('favorite', findStr);
   }
 }

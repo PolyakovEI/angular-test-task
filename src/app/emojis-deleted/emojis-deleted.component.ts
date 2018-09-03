@@ -12,6 +12,7 @@ export class EmojisDeletedComponent implements OnInit {
   displayedColumns: string[] = ['name', 'url', 'preview', 'actions'];
   emojisArray: Emoji[];
 
+
   constructor(private emojiService: EmojiService) { }
 
 
@@ -20,19 +21,20 @@ export class EmojisDeletedComponent implements OnInit {
   }
 
 
-  // get list deleted emojis
+  // Get list deleted emojis
   async getEmojis(): Promise<void> {
     this.emojisArray = await this.emojiService.getList('deleted');
   }
 
 
-  // restore deleted emojis
-  restore(emoji: Emoji): void {
+  // Recovery deleted emojis
+  recovery(emoji: Emoji): void {
     this.emojisArray = this.emojisArray.filter(h => h !== emoji);
     this.emojiService.delete(emoji.name);
   }
 
 
+  // Search emoji in specified list of emojis
   async search(findStr: string): Promise<void> {
     this.emojisArray = await this.emojiService.searchEmojis('deleted', findStr);
   }

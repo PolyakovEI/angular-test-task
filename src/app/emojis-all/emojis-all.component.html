@@ -16,6 +16,7 @@
         mat-table
         [dataSource]="emojisArray"
         class="mat-elevation-z8"
+        
     >
         <ng-container matColumnDef="name">
             <th
@@ -88,8 +89,8 @@
                     <td>
                         <button
                             mat-icon-button
-                            (click)="liked(emoji.name)"
-                            [ngClass]="{'liked': checkInLiked(emoji.name)}"
+                            (click)="favorite(emoji.name)"
+                            [ngClass]="{'liked': checkInFavorite(emoji.name)}"
                         >
                             <mat-icon aria-label="Like emoji">star</mat-icon>
                         </button>

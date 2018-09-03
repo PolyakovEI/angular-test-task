@@ -10,20 +10,19 @@ import { EmojiService } from '../emoji.service';
 export class EmojisAllComponent implements OnInit {
   title = 'все';
   displayedColumns: string[] = ['name', 'url', 'preview', 'actions'];
-  emojisAll: Emoji[];
   emojisArray: Emoji[];
   preloaderVisible: boolean;
+
 
   constructor(private emojiService: EmojiService) { }
 
 
   ngOnInit() {
     this.getEmojis();
-
   }
 
 
-  // get list emojis
+  // Get list of all emojis
   async getEmojis(): Promise<void> {
     this.preloaderVisible = true;
     await this.emojiService.getList()
@@ -34,29 +33,27 @@ export class EmojisAllComponent implements OnInit {
   }
 
 
-  // add emoji in list favorite
-  liked(key: string): void {
-    this.emojiService.liked(key);
+  // Add emoji in list of favorite
+  favorite(key: string): void {
+    this.emojiService.favorite(key);
   }
 
 
-  // add emoji in list deleted
+  // Add emoji in list of deleted
   delete(emoji: Emoji): void {
     this.emojisArray = this.emojisArray.filter(h => h !== emoji);
     this.emojiService.delete(emoji.name);
   }
 
 
-  checkInLiked(key: string): boolean {
-    return this.emojiService.cheackInLiked(key);
+  // Check is emoji in the list of favorite
+  checkInFavorite(key: string): boolean {
+    return this.emojiService.cheackInFavorite(key);
   }
 
+
+  // Search emoji in specified list of emojis
   async search(findStr: string): Promise<void> {
     this.emojisArray = await this.emojiService.searchEmojis('', findStr);
-  }
-
-
-  log(ev: Event): void {
-    console.log(ev);
   }
 }
