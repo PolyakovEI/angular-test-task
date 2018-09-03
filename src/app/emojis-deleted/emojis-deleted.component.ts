@@ -11,6 +11,7 @@ export class EmojisDeletedComponent implements OnInit {
   title = 'удаленные';
   displayedColumns: string[] = ['name', 'url', 'preview', 'actions'];
   emojisArray: Emoji[];
+  preloaderVisible = true;
 
 
   constructor(private emojiService: EmojiService) { }
@@ -23,7 +24,12 @@ export class EmojisDeletedComponent implements OnInit {
 
   // Get list deleted emojis
   async getEmojis(): Promise<void> {
-    this.emojisArray = await this.emojiService.getList('deleted');
+    this.preloaderVisible = true;
+    await this.emojiService.getList('deleted')
+    .then(data => {
+      this.emojisArray = data;
+      this.preloaderVisible = false;
+    });
   }
 
 
@@ -36,6 +42,7 @@ export class EmojisDeletedComponent implements OnInit {
 
   // Search emoji in specified list of emojis
   async search(findStr: string): Promise<void> {
-    this.emojisArray = await this.emojiService.searchEmojis('deleted', findStr);
+    await this.emojiService.searchEmojis('deleted', findStr)
+      .then(data => this.emojisArray = data);
   }
 }

@@ -11,7 +11,7 @@ export class EmojisAllComponent implements OnInit {
   title = 'все';
   displayedColumns: string[] = ['name', 'url', 'preview', 'actions'];
   emojisArray: Emoji[];
-  preloaderVisible: boolean;
+  preloaderVisible = true;
 
 
   constructor(private emojiService: EmojiService) { }
@@ -54,6 +54,7 @@ export class EmojisAllComponent implements OnInit {
 
   // Search emoji in specified list of emojis
   async search(findStr: string): Promise<void> {
-    this.emojisArray = await this.emojiService.searchEmojis('', findStr);
+    await this.emojiService.searchEmojis('', findStr)
+      .then(data => this.emojisArray = data);
   }
 }

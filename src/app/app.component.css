@@ -67,3 +67,9 @@
   position:absolute;
   top:inherit;
 }
+
+.preload {
+  position: absolute;
+  top: 50%;
+  left: 48%;
+}

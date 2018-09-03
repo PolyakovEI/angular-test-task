@@ -11,95 +11,103 @@
     </mat-form-field>
 </div>
 <div>
-    <table
-        mat-table
-        [dataSource]="emojisArray"
-        class="mat-elevation-z8"
+    <div
+        *ngIf="preloaderVisible; else tableEmojis"
+        class="preload"
     >
-        <ng-container matColumnDef="name">
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-            >
-                Имя
-            </th>
-            <td
-                mat-cell
-                *matCellDef="let emoji"
-                class="column-name"
-            >
-                {{emoji.name}}
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="url">
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-            >
-                Ссылка
-            </th>
-            <td
-                mat-cell
-                *matCellDef="let emoji"
-            >
-                {{emoji.url}}
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="preview">
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-            >
-                Превью
-            </th>
-            <td
-                mat-cell
-                *matCellDef="let emoji"
-                class="column-preview"
-            >
-                <img
-                    class="img"
-                    src="{{emoji.url}}"
-                    alt="{{emoji.name}}"
+        Loading...
+    </div>
+    <ng-template #tableEmojis>
+        <table
+            mat-table
+            [dataSource]="emojisArray"
+            class="mat-elevation-z8"
+        >
+            <ng-container matColumnDef="name">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
                 >
-                <div class="full-size-image">
-                    <img src="{{emoji.url}}">
-                </div>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="actions">
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-            >
-                Действия
-            </th>
-            <td
-                mat-cell
-                *matCellDef="let emoji"
-                class="column-actions"
-            >
-                <button
-                    mat-raised-button
-                    (click)="recovery(emoji)"
+                    Имя
+                </th>
+                <td
+                    mat-cell
+                    *matCellDef="let emoji"
+                    class="column-name"
                 >
-                    Восстановить
-                </button>
-            </td>
-        </ng-container>
+                    {{emoji.name}}
+                </td>
+            </ng-container>
 
-        <tbody>
-            <tr
-                mat-header-row
-                *matHeaderRowDef="displayedColumns"
-            ></tr>
-            <tr
-                mat-row
-                *matRowDef="let row; columns: displayedColumns;"
-            ></tr>
-        </tbody>
-    </table>
+            <ng-container matColumnDef="url">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Ссылка
+                </th>
+                <td
+                    mat-cell
+                    *matCellDef="let emoji"
+                >
+                    {{emoji.url}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="preview">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Превью
+                </th>
+                <td
+                    mat-cell
+                    *matCellDef="let emoji"
+                    class="column-preview"
+                >
+                    <img
+                        class="img"
+                        src="{{emoji.url}}"
+                        alt="{{emoji.name}}"
+                    >
+                    <div class="full-size-image">
+                        <img src="{{emoji.url}}">
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Действия
+                </th>
+                <td
+                    mat-cell
+                    *matCellDef="let emoji"
+                    class="column-actions"
+                >
+                    <button
+                        mat-raised-button
+                        (click)="recovery(emoji)"
+                    >
+                        Восстановить
+                    </button>
+                </td>
+            </ng-container>
+
+            <tbody>
+                <tr
+                    mat-header-row
+                    *matHeaderRowDef="displayedColumns"
+                ></tr>
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns;"
+                ></tr>
+            </tbody>
+        </table>
+    </ng-template>
 </div>

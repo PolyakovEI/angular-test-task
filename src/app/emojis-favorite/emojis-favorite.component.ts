@@ -41,6 +41,7 @@ export class EmojisFavoriteComponent implements OnInit {
 
   // Search emoji in specified list of emojis
   async search(findStr: string): Promise<void> {
-    this.emojisArray = await this.emojiService.searchEmojis('favorite', findStr);
+    await this.emojiService.searchEmojis('favorite', findStr)
+    .then(data => this.emojisArray = data);
   }
 }
